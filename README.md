@@ -16,6 +16,7 @@ A desktop application that integrates **Discord Rich Presence** with **YouTube M
 - **.NET Framework 4.7.2** or higher
 - **WebSocketSharp** - WebSocket server to communicate with the browser
 - **Newtonsoft.Json** - For JSON parsing
+- **[Discord Developer Portal](https://discord.com/developers/applications)** - To create an application and acquire a client ID
 
 ### For the Browser Script
 
@@ -32,7 +33,7 @@ A desktop application that integrates **Discord Rich Presence** with **YouTube M
 ### Desktop Application
 
 1. Clone this repository or download the project.
-2. Open the solution in **Visual Studio** (or any compatible .NET IDE).
+2. Open the solution in **Visual Studio** (or any compatible .NET IDE) and add your client ID.
 3. Build the project using **Release** mode.
 4. Grab the latest **DiscordRPC.dll**, and add it as a reference to the project. See [discord-rpc-csharp](https://github.com/Lachee/discord-rpc-csharp/releases) for more details.
 
