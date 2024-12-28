@@ -34,8 +34,8 @@ A desktop application that integrates **Discord Rich Presence** with **YouTube M
 
 1. Clone this repository or download the project.
 2. Open the solution in **Visual Studio** (or any compatible .NET IDE) and add your client ID.
-3. Build the project using **Release** mode.
-4. Grab the latest **DiscordRPC.dll**, and add it as a reference to the project. See [discord-rpc-csharp](https://github.com/Lachee/discord-rpc-csharp/releases) for more details.
+3. Grab the latest **DiscordRPC.dll**, and add it as a reference to the project. See [discord-rpc-csharp](https://github.com/Lachee/discord-rpc-csharp/releases) for more details.
+4. Build the project using **Debug** mode.
 
 ### Browser Script
 
