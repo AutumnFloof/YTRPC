@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 using DiscordRPC;
 using DiscordRPC.Logging;
@@ -15,10 +17,13 @@ namespace YTRPC
         private DiscordRpcClient client;
         private NotifyIcon notifyIcon;
         private WebSocketServer server;
-        private string clientId = "YOUR_CLIENT_ID";  // Replace with your actual client ID
+        private string clientId;  // placeholder for client ID
 
         public Form1()
         {
+            //Loads Client ID from user config file
+            LoadClientID();
+
             InitializeComponent();
 
             // Initialize the Discord RPC client
@@ -30,7 +35,7 @@ namespace YTRPC
             // Set the callback for when Discord is ready
             client.OnReady += (sender, e) =>
             {
-                Debug.WriteLine("Discord connected: " + e.User.Username);
+                MessageBox.Show("Discord connected: " + e.User.Username, "YTRPC", MessageBoxButtons.OK, MessageBoxIcon.Information);
             };
 
             // Start the RPC client
@@ -44,9 +49,35 @@ namespace YTRPC
             {
                 Icon = Properties.Resources.app,  // Using your embedded icon
                 Visible = true,
+                Text = "YTRPC - YouTube Music to Discord RPC",
                 ContextMenuStrip = new ContextMenuStrip()
             };
             notifyIcon.ContextMenuStrip.Items.Add("Exit", null, Exit_Click);
+        }
+
+        private void LoadClientID()
+        {
+            string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
+            if (File.Exists(configPath))
+            {
+                try
+                {
+                    var config = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(configPath));
+                    clientId = config["ClientId"];
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "YTRPC");
+                }
+            }
+            else
+            {
+                DialogResult res = MessageBox.Show("config.json file not found, please ensure it exists in the application folder and try again", "YouTube Music RPC", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if(res == DialogResult.OK)
+                {
+                    Environment.Exit(0);
+                }
+            }
         }
 
         public void SetActivity(string state, string details, string imageKey, string url)
